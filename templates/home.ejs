@@ -1,0 +1,35 @@
+<header class="am-topbar">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="/">微博</a>
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                    class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="/">广场</a></li>
+            </ul>
+
+            <div class="am-topbar-right">
+                <% if(userId) { %>
+                    <a onclick="return confirm('确定退出吗?')" href="/user/logout"
+                       class="text-white am-btn am-btn-secondary am-topbar-btn am-btn-sm">退出登录</a>
+                <% } else{ %>
+                    <a href="/user/register" class="text-white am-btn am-btn-secondary am-topbar-btn am-btn-sm">注册</a>
+                <% } %>
+            </div>
+            <div class="am-topbar-right">
+                <% if(userId) { %>
+                    <a href="/user/home" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">个人中心</a>
+                <% } else{ %>
+                    <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="am-g am-g-fixed blog-g-fixed">
+</div>
