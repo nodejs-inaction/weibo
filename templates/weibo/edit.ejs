@@ -1,0 +1,50 @@
+<header class="am-topbar">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="/">微博</a>
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                    class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="/">广场</a></li>
+            </ul>
+
+
+            <div class="am-topbar-right">
+                <% if(userId) { %>
+                    <a href="/user/home" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">个人中心</a>
+                <% } else{ %>
+                    <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
+                <% } %>
+            </div>
+
+            <div class="am-topbar-right">
+                <% if(userId) { %>
+                    <a href="/user/logout" class="text-white am-btn am-btn-secondary am-topbar-btn am-btn-sm">退出登录</a>
+                <% } else{ %>
+                    <a href="/user/register" class="text-white am-btn am-btn-secondary am-topbar-btn am-btn-sm">注册</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="am-container">
+    <div class="am-g">
+        <ol class="am-breadcrumb">
+            <li><a href="/user/home">个人中心</a></li>
+            <li class="am-active">编辑微博</li>
+        </ol>
+        <form method="post" class="am-form" action="/weibo/edit/<%=weibo.id%>">
+            <textarea style="resize: none" name="content" rows="4" maxlength="140" placeholder="微博内容(最多140字)"><%=weibo.content%></textarea>
+            <br>
+            <div class="am-cf">
+                <input type="submit" name="" value="保存" class="am-btn am-btn-primary am-btn-sm am-fr">
+            </div>
+        </form>
+    </div>
+</div>

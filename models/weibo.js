@@ -1,11 +1,6 @@
 // 微博
 const {Model} = require('sequelize');
 
-exports.PublishType = {
-    Self: 1, // 自己发布
-    Share: 2 // 转发
-};
-
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.import('./user');
 
@@ -28,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Weibo.belongsTo(User, {
-        constraints: false
+        constraints: false,
+        foreignKey: 'userId'
     });
 
     Weibo.afterCreate(async (weibo) => {
@@ -40,4 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         await User.increment({weiboCount: -1}, {where: {id: weibo.userId}});
     });
     return Weibo;
+};
+
+module.exports.PublishType = {
+    Self: 1, // 自己发布
+    Share: 2 // 转发
 };
