@@ -31,5 +31,49 @@
         </div>
     </div>
 </header>
-<div class="am-g am-g-fixed blog-g-fixed">
+<div class="am-container">
+    <div class="am-g">
+        <% if(list.length === 0){ %>
+            <p class="am-text-center">你未发表过微博</p>
+        <% } else { %>
+            <ul class="am-comments-list enable-scroll" id="list">
+                <% for(const item of list){ %>
+                <li class="am-comment">
+                    <a href="/user/homepage/<%= item.userId %>">
+                        <img src="/image/avatar.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
+                    </a>
+                    <div class="am-comment-main">
+                        <header class="am-comment-hd">
+                            <div class="am-comment-meta">
+                                <a class="am-comment-author" href="/user/homepage/<%= item.userId %>"><%= item.user.nickname %></a>
+                                发表于
+                                <time datetime="<%= item.createdAt %>"><%= item.createdAt.toLocaleString() %></time>
+                            </div>
+                        </header>
+                        <div class="am-comment-bd">
+                            <%= item.content %>
+                        </div>
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+
+            <% if(count > size){ %>
+                <ul class="am-pagination am-pagination-left" style="margin-left: 64px;">
+                    <% if(page <= 1){ %>
+                        <li class="am-disabled"><span>上一页</span></li>
+                    <% }else{ %>
+                        <li><a href="/?page=<%= page - 1 %>">上一页</a></li>
+                    <% } %>
+                    </li>
+                    <% const offset = (page - 1) * size; %>
+                    <% if(count > offset){ %>
+                        <li><a href="/?page=<%= page + 1 %>">下一页</a></li>
+                    <% }else{ %>
+                        <li class="am-disabled"><span>下一页</span></li>
+                    <% } %>
+                </ul>
+            <% } %>
+        <% } %>
+    </div>
 </div>

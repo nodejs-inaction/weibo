@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
 
     Weibo.belongsTo(User, {
         constraints: false,
-        foreignKey: 'userId'
+        foreignKey: 'userId',
+        as: 'user'
     });
 
     Weibo.afterCreate(async (weibo) => {
