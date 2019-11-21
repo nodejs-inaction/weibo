@@ -77,7 +77,7 @@ router.post('/comment/:id', guard, async (ctx) => {
         throw new Error('微博不存在');
     }
     await commentService.publish(weiboId, ctx.state.userId, content);
-    await ctx.redirect('back');
+    await ctx.redirect(`/weibo/show/${weiboId}`);
 });
 
 module.exports = router;

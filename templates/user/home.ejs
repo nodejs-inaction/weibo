@@ -80,8 +80,8 @@
                         <li><a href="?page=<%= page - 1 %>">上一页</a></li>
                     <% } %>
                     </li>
-                    <% const offset = (page - 1) * size; %>
-                    <% if(count > offset){ %>
+                    <% const cursor = page * size; %>
+                    <% if(count > cursor){ %>
                         <li><a href="?page=<%= page + 1 %>">下一页</a></li>
                     <% }else{ %>
                         <li class="am-disabled"><span>下一页</span></li>

@@ -35,6 +35,6 @@ exports.listByWeibo = async function (weiboId, page, size) {
         }],
         offset: (page - 1) * size,
         limit: size,
-        order: [['id', 'ASC']]
+        order: [['id', 'DESC']]
     });
 };

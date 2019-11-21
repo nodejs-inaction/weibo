@@ -90,7 +90,8 @@
             <hr>
             <% if(userId){ %>
                 <form method="post" class="am-form" action="/weibo/comment/<%= weibo.id %>">
-                    <textarea name="content" rows="4" maxlength="140" placeholder="文明上网、友善发言" required></textarea>
+                    <textarea id="comment" name="content" rows="4" maxlength="140" placeholder="文明上网、友善发言"
+                              required></textarea>
                     <br/>
                     <div class="am-cf">
                         <input type="submit" name="" value="评 论" class="am-btn am-btn-primary am-btn-sm am-fr">
@@ -121,6 +122,12 @@
                             </header>
                             <div class="am-comment-bd">
                                 <%= item.content %>
+                                <% if(userId && item.userId !== userId){ %>
+                                    <br>
+                                    <a href="javascript:void(0)" data-reply="<%= item.user.nickname %>">
+                                        回复
+                                    </a>
+                                <% } %>
                             </div>
                         </div>
                     </li>
@@ -134,8 +141,8 @@
                         <li><a href="?page=<%= page - 1 %>">上一页</a></li>
                     <% } %>
                     </li>
-                    <% const offset = (page - 1) * size; %>
-                    <% if(count > offset){ %>
+                    <% const cursor = page * size; %>
+                    <% if(count > cursor){ %>
                         <li><a href="?page=<%= page + 1 %>">下一页</a></li>
                     <% }else{ %>
                         <li class="am-disabled"><span>下一页</span></li>
@@ -145,3 +152,12 @@
         <% } %>
     </div>
 </div>
+<script>
+    $(function () {
+        const $comment = $('#comment');
+        $('[data-reply]').on('click', function () {
+            const nickname = $(this).data('reply');
+            $comment.val('@' + nickname + ' ').focus();
+        });
+    });
+</script>
