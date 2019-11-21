@@ -26,11 +26,12 @@ exports.destroy = async function (commentId, userId) {
 };
 // 查看微博的评论列表
 exports.listByWeibo = async function (weiboId, page, size) {
-    return Comment.findAll({
+    return Comment.findAndCountAll({
         where: {weiboId},
         include: [{
             model: User,
-            attributes: ['id', 'nickname']
+            attributes: ['id', 'nickname'],
+            as: 'user'
         }],
         offset: (page - 1) * size,
         limit: size,

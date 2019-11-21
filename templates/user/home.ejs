@@ -15,19 +15,18 @@
 
 
             <div class="am-topbar-right">
-                <% if(userId) { %>
-                    <a href="/user/home" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">个人中心</a>
-                <% } else{ %>
-                    <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
-                <% } %>
-            </div>
-
-            <div class="am-topbar-right">
-                <% if(userId) { %>
-                    <a href="/user/logout" class="text-white am-btn am-btn-secondary am-topbar-btn am-btn-sm">退出登录</a>
-                <% } else{ %>
-                    <a href="/user/register" class="text-white am-btn am-btn-secondary am-topbar-btn am-btn-sm">注册</a>
-                <% } %>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="text-white am-dropdown-toggle am-btn am-btn-primary am-topbar-btn am-btn-sm"
+                       data-am-dropdown-toggle href="javascript:;">
+                        个人中心 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="/user/home">个人首页</a></li>
+                        <li><a href="/user/profile">修改资料</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="/user/logout" onclick="return confirm('确定退出吗?')">退出登录</a></li>
+                    </ul>
+                </li>
             </div>
         </div>
     </div>
@@ -51,7 +50,7 @@
             <ul class="am-comments-list enable-scroll" id="list">
                 <% for(const item of list){ %>
                     <li class="am-comment">
-                        <a href="#link-to-user-home">
+                        <a href="javascript:void(0)">
                             <img src="/image/avatar.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
                         </a>
                         <div class="am-comment-main">
@@ -78,12 +77,12 @@
                     <% if(page <= 1){ %>
                         <li class="am-disabled"><span>上一页</span></li>
                     <% }else{ %>
-                        <li><a href="/user/home?page=<%= page - 1 %>">上一页</a></li>
+                        <li><a href="?page=<%= page - 1 %>">上一页</a></li>
                     <% } %>
                     </li>
                     <% const offset = (page - 1) * size; %>
                     <% if(count > offset){ %>
-                        <li><a href="/user/home?page=<%= page + 1 %>">下一页</a></li>
+                        <li><a href="?page=<%= page + 1 %>">下一页</a></li>
                     <% }else{ %>
                         <li class="am-disabled"><span>下一页</span></li>
                     <% } %>

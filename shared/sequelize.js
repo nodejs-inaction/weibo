@@ -7,5 +7,5 @@ module.exports = new Sequelize({
     port: 3306,
     username: 'root',
     password: 'root',
-    database: 'weibo'
+    database: 'weibo',
 });

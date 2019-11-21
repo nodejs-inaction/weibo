@@ -26,8 +26,15 @@ exports.share = async function (userId, weiboId, shareContent) {
 };
 
 // 查询一条微博
-exports.show = async function (id) {
-    return Weibo.findByPk(id);
+exports.show = async function (id, withUser = false) {
+    const options = {};
+    if (withUser) {
+        options.include = [{
+            model: User,
+            as: 'user'
+        }];
+    }
+    return Weibo.findByPk(id, options);
 };
 
 // 所有微博列表

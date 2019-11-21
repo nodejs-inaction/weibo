@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon -w . -e js,ejs index.js "
   },
   "dependencies": {
     "koa": "^2.11.0",

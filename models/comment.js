@@ -19,10 +19,13 @@ module.exports = (sequelize, DataTypes) => {
     });
     // 关联定义
     Comment.belongsTo(Weibo, { // 评论属于微博
-        constraints: false
+        constraints: false,
+        foreignKey: 'weiboId'
     });
     Comment.belongsTo(User, { // 评论属于用户
         constraints: false,
+        foreignKey: 'userId',
+        as: 'user'
     });
 
     Comment.afterSave(async (comment) => {

@@ -34,7 +34,6 @@
                     </li>
                 </div>
             <% } else{ %>
-
                 <div class="am-topbar-right">
                     <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
                 </div>
@@ -48,11 +47,65 @@
 </header>
 <div class="am-container">
     <div class="am-g">
-        <% if(list.length === 0){ %>
-            <p class="am-text-center">你未发表过微博</p>
-        <% } else { %>
+        <ol class="am-breadcrumb">
+            <li><a href="/">广场</a></li>
+            <li class="am-active">微博详情</li>
+        </ol>
+        <article class="am-comment">
+            <a href="/user/homepage/<%= weibo.userId %>">
+                <img src="/image/avatar.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
+            </a>
+
+            <div class="am-comment-main">
+                <header class="am-comment-hd">
+                    <div class="am-comment-meta">
+                        <a href="/user/homepage/<%= weibo.userId %>"
+                           class="am-comment-author"><%= weibo.user.nickname || '无昵称' %></a>
+                        <%= weibo.shareContent ? '转发' : '发表' %>于
+                        <time datetime="<%= weibo.createdAt %>"><%= weibo.createdAt.toLocaleString() %></time>
+                    </div>
+                </header>
+
+                <div class="am-comment-bd">
+                    <% if(weibo.shareContent){ %>
+                        <%= weibo.shareContent %>
+                        <hr>
+                    <% } %>
+                    <%= weibo.content %>
+                    <br>
+                    <i class="am-icon-comment"></i> (<%= weibo.commentCount %>)
+                    <% if(userId && weibo.userId !== userId){ %>
+                        <a href="/weibo/share/<%= weibo.id %>">
+                            <i class="am-icon-share"></i> (<%= weibo.shareCount %>)
+                        </a>
+                    <% }else{ %>
+                        <i class="am-icon-share"></i> (<%= weibo.shareCount %>)
+                    <% } %>
+                </div>
+            </div>
+        </article>
+        <!--        评论-->
+        <div>
+            <h3>评论</h3>
+            <hr>
+            <% if(userId){ %>
+                <form method="post" class="am-form" action="/weibo/comment/<%= weibo.id %>">
+                    <textarea name="content" rows="4" maxlength="140" placeholder="文明上网、友善发言" required></textarea>
+                    <br/>
+                    <div class="am-cf">
+                        <input type="submit" name="" value="评 论" class="am-btn am-btn-primary am-btn-sm am-fr">
+                    </div>
+                </form>
+            <% }else{ %>
+                <p><a href="/user/login">登录</a> 后发表评论</p>
+            <% } %>
+        </div>
+        <hr>
+        <% if(comments.length === 0){ %>
+            <p>暂时没有评论</p>
+        <% }else{ %>
             <ul class="am-comments-list enable-scroll" id="list">
-                <% for(const item of list){ %>
+                <% for(const item of comments){ %>
                     <li class="am-comment">
                         <a href="/user/homepage/<%= item.userId %>">
                             <img src="/image/avatar.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
@@ -62,22 +115,17 @@
                                 <div class="am-comment-meta">
                                     <a class="am-comment-author"
                                        href="/user/homepage/<%= item.userId %>"><%= item.user.nickname %></a>
-                                    发表于
+                                    评论于
                                     <time datetime="<%= item.createdAt %>"><%= item.createdAt.toLocaleString() %></time>
                                 </div>
                             </header>
                             <div class="am-comment-bd">
                                 <%= item.content %>
-                                <small><a href="/weibo/show/<%= item.id %>">查看详情</a></small>
-                                <br>
-                                <i class="am-icon-comment"></i> (<%= item.commentCount %>)
-                                <i class="am-icon-share"></i> (<%= item.shareCount %>)
                             </div>
                         </div>
                     </li>
                 <% } %>
             </ul>
-
             <% if(count > size){ %>
                 <ul class="am-pagination am-pagination-left" style="margin-left: 64px;">
                     <% if(page <= 1){ %>
