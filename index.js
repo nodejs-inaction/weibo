@@ -13,13 +13,13 @@ const app = new Koa({
     keys: ['KGJ6NLxqOkYCNr1h']
 });
 
+// 中间件
+app.use(errorHandler);
 render(app, { // 使用ejs中间件
     root: './templates', // 模板目录
     layout: 'layout', // 关闭模板布局
     viewExt: 'ejs'
 });
-// 中间件
-app.use(errorHandler);
 app.use(staticMiddleware(__dirname + '/public'));
 app.use(bodyParser());
 app.use(authenticate);

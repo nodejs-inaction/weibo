@@ -2,7 +2,6 @@ const sequelize = require('../shared/sequelize');
 const PublishType = require('../models/weibo').PublishType;
 const Weibo = sequelize.import('../models/weibo');
 const User = sequelize.import('../models/user');
-const Comment = sequelize.import('../models/comment');
 // 发表微博
 exports.publish = async function (userId, content) {
     return Weibo.create({

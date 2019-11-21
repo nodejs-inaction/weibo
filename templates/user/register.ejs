@@ -13,7 +13,6 @@
                 <li><a href="/">广场</a></li>
             </ul>
 
-
             <% if(userId) { %>
                 <div class="am-topbar-right">
                     <li class="am-dropdown" data-am-dropdown>
@@ -30,12 +29,11 @@
                     </li>
                 </div>
             <% } else{ %>
-
+                <div class="am-topbar-right">
+                    <a href="/user/register" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">注册</a>
+                </div>
                 <div class="am-topbar-right">
                     <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
-                </div>
-                <div class="am-topbar-register">
-                    <a href="/user/register" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">注册</a>
                 </div>
             <% } %>
         </div>

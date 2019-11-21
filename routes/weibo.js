@@ -65,7 +65,7 @@ router.get('/show/:id', async (ctx) => {
     });
 });
 
-router.post('/comment/:id', guard, async (ctx) => {
+router.post('/comment/:id', guard, async (ctx) =>{
     const {content} = ctx.request.body;
     if (!content || content.length > 140) {
         throw new Error('评论内容长度不合法');

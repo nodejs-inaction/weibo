@@ -30,8 +30,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         password: {type: DataTypes.CHAR(64), allowNull: false, comment: '密码'},
         nickname: {type: DataTypes.STRING(20), allowNull: false, defaultValue: '', comment: '昵称'},
-        subscriberCount: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, comment: '关注数'},
-        followerCount: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, comment: '粉丝数'},
         weiboCount: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0, comment: '微博数'}
     }, {
         sequelize: sequelize,
