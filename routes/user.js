@@ -54,4 +54,14 @@ router.get('/home', guard, async (ctx) => {
     });
 });
 
+router.get('/homepage/:id', async (ctx) => {
+    const {page = 1, size = 10} = ctx.query;
+    const {rows, count} = await weiboService.listByUser(ctx.params.id, page, size);
+    await ctx.render('user/homepage', {
+        list: rows,
+        count,
+        page: Number(page),
+        size: Number(size)
+    });
+});
 module.exports = router;

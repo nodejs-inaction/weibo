@@ -1,0 +1,100 @@
+<header class="am-topbar">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="/">微博</a>
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                    class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="/">广场</a></li>
+            </ul>
+
+            <% if(userId) { %>
+                <div class="am-topbar-right">
+                    <li class="am-dropdown" data-am-dropdown>
+                        <a class="text-white am-dropdown-toggle am-btn am-btn-primary am-topbar-btn am-btn-sm"
+                           data-am-dropdown-toggle href="javascript:;">
+                            个人中心 <span class="am-icon-caret-down"></span>
+                        </a>
+                        <ul class="am-dropdown-content">
+                            <li><a href="/user/home">个人首页</a></li>
+                            <li><a href="/user/profile">修改资料</a></li>
+                            <li class="am-divider"></li>
+                            <li><a href="/user/logout" onclick="return confirm('确定退出吗?')">退出登录</a></li>
+                        </ul>
+                    </li>
+                </div>
+            <% } else{ %>
+                <div class="am-topbar-right">
+                    <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
+                </div>
+                <div class="am-topbar-register">
+                    <a href="/user/register" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">注册</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</header>
+
+<div class="am-container">
+    <div class="am-g">
+        <ol class="am-breadcrumb">
+            <li><a href="/">广场</a></li>
+            <li class="am-active">用户主页</li>
+        </ol>
+        <!-- 微博列表-->
+        <% if(list.length === 0){ %>
+            <p class="am-text-center">TA未发表过微博</p>
+        <% } else { %>
+            <ul class="am-comments-list enable-scroll" id="list">
+                <% for(const item of list){ %>
+                    <li class="am-comment">
+                        <a href="javascript:void(0)">
+                            <img src="/image/avatar.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
+                        </a>
+                        <div class="am-comment-main">
+                            <header class="am-comment-hd">
+                                <div class="am-comment-meta">
+                                    <time datetime="<%= item.createdAt %>"><%= item.createdAt.toLocaleString() %></time>
+                                    <a href="/weibo/edit/<%= item.id %>"><i class="am-icon-edit"></i> 编辑</a>
+
+                                    <a onclick="return confirm('确定删除吗?')" href="/weibo/delete/<%= item.id %>">
+                                        <i class="am-icon-trash"></i> 删除
+                                    </a>
+                                </div>
+                            </header>
+                            <div class="am-comment-bd">
+                                <% if(item.shareContent){ %>
+                                    <%= item.shareContent %>
+                                    <hr>
+                                <% } %>
+                                <%= item.content %>
+                            </div>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+
+            <% if(count > size){ %>
+                <ul class="am-pagination am-pagination-left" style="margin-left: 64px;">
+                    <% if(page <= 1){ %>
+                        <li class="am-disabled"><span>上一页</span></li>
+                    <% }else{ %>
+                        <li><a href="?page=<%= page - 1 %>">上一页</a></li>
+                    <% } %>
+                    </li>
+                    <% const cursor = page * size; %>
+                    <% if(count > cursor){ %>
+                        <li><a href="?page=<%= page + 1 %>">下一页</a></li>
+                    <% }else{ %>
+                        <li class="am-disabled"><span>下一页</span></li>
+                    <% } %>
+                </ul>
+            <% } %>
+        <% } %>
+    </div>
+</div>
