@@ -65,6 +65,10 @@
                                 </div>
                             </header>
                             <div class="am-comment-bd">
+                                <% if(item.shareContent){ %>
+                                <%= item.shareContent %>
+                                <hr>
+                                <% } %>
                                 <%= item.content %>
                             </div>
                         </div>

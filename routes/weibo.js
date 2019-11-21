@@ -14,7 +14,7 @@ router.post('/publish', guard, async (ctx) => {
         throw new Error('微博最大140字');
     }
     await weiboService.publish(ctx.state.userId, content);
-    await ctx.redirect('back');
+    await ctx.redirect('/');
 });
 
 router.get('/edit/:id', guard, async (ctx) => {
@@ -80,4 +80,26 @@ router.post('/comment/:id', guard, async (ctx) => {
     await ctx.redirect(`/weibo/show/${weiboId}`);
 });
 
+router.get('/share/:id', guard, async (ctx) => {
+    const weibo = await weiboService.show(ctx.params.id, true);
+    if (!weibo) {
+        throw new Error('微博不存在');
+    }
+    const userId = ctx.state.userId;
+    if (weibo.userId === userId) {
+        throw new Error('不能转发自己的微博');
+    }
+    await ctx.render('weibo/share', {
+        weibo
+    });
+});
+
+router.post('/share/:id', guard, async (ctx) => {
+    const {content} = ctx.request.body;
+    if (!content || content.length > 140) {
+        throw new Error('转发内容长度不合法');
+    }
+    const weibo = await weiboService.share(ctx.state.userId, ctx.params.id, content);
+    await ctx.redirect(`/weibo/show/${weibo.id}`);
+});
 module.exports = router;

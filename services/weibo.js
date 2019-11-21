@@ -17,11 +17,21 @@ exports.share = async function (userId, weiboId, shareContent) {
     if (weibo === null) {
         throw  new Error('转发的微博不存在');
     }
+    if (weibo.userId === userId) {
+        throw new Error('不能转发自己的微博');
+    }
 
-    return Weibo.create({
-        userId,
-        content: weibo.content,
-        shareContent
+    return sequelize.transaction(async (transaction) => {
+        const newWeibo = await Weibo.create({
+            userId,
+            content: weibo.content,
+            shareContent,
+            type: PublishType.Share,
+        }, {transaction});
+        // 更新源微博的分享数
+        weibo.shareCount++;
+        await weibo.save({transaction});
+        return newWeibo;
     });
 };
 

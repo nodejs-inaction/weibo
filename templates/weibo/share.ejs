@@ -13,7 +13,6 @@
                 <li><a href="/">广场</a></li>
             </ul>
 
-
             <% if(userId) { %>
                 <div class="am-topbar-right">
                     <li class="am-dropdown" data-am-dropdown>
@@ -30,7 +29,6 @@
                     </li>
                 </div>
             <% } else{ %>
-
                 <div class="am-topbar-right">
                     <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
                 </div>
@@ -45,15 +43,38 @@
 <div class="am-container">
     <div class="am-g">
         <ol class="am-breadcrumb">
-            <li><a href="/user/home">个人中心</a></li>
-            <li class="am-active">编辑微博</li>
+            <li><a href="/">广场</a></li>
+            <li><a href="/weibo/show/<%= weibo.id %>">微博详情</a></li>
+            <li class="am-active">转发微博</li>
         </ol>
-        <form method="post" class="am-form" action="/weibo/edit/<%=weibo.id%>">
-            <textarea style="resize: none" name="content" rows="4" maxlength="140" placeholder="微博内容(最多140字)"><%=weibo.content%></textarea>
+        <form method="post" class="am-form" action="/weibo/share/<%= weibo.id %>">
+            <h3>转发微博</h3>
+            <textarea style="resize: none" name="content" rows="4" maxlength="140" placeholder="转发内容"></textarea>
             <br>
             <div class="am-cf">
-                <input type="submit" name="" value="保存" class="am-btn am-btn-primary am-btn-sm am-fr">
+                <input type="submit" name="" value="转发" class="am-btn am-btn-primary am-btn-sm am-fr">
             </div>
         </form>
+        <hr>
+        <article class="am-comment">
+            <a href="/user/homepage/<%= weibo.userId %>">
+                <img src="/image/avatar.jpg" alt="" class="am-comment-avatar" width="48" height="48"/>
+            </a>
+
+            <div class="am-comment-main">
+                <header class="am-comment-hd">
+                    <div class="am-comment-meta">
+                        <a href="/user/homepage/<%= weibo.userId %>"
+                           class="am-comment-author"><%= weibo.user.nickname || '无昵称' %></a>
+                        发表于
+                        <time datetime="<%= weibo.createdAt %>"><%= weibo.createdAt.toLocaleString() %></time>
+                    </div>
+                </header>
+
+                <div class="am-comment-bd">
+                    <%= weibo.content %>
+                </div>
+            </div>
+        </article>
     </div>
 </div>

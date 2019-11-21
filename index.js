@@ -7,6 +7,7 @@ const authenticate = require('./middlewares/authenticate');
 const homeRoute = require('./routes/home');
 const userRoute = require('./routes/user');
 const weiboRoute = require('./routes/weibo');
+const commentRoute = require('./routes/comment');
 
 const app = new Koa({
     keys: ['KGJ6NLxqOkYCNr1h']
@@ -26,6 +27,7 @@ app.use(authenticate);
 app.use(homeRoute.routes()).use(homeRoute.allowedMethods());
 app.use(userRoute.routes()).use(userRoute.allowedMethods());
 app.use(weiboRoute.routes()).use(weiboRoute.allowedMethods());
+app.use(commentRoute.routes()).use(commentRoute.allowedMethods());
 
 app.listen(8080, () => {
     console.log('listen on 8080')

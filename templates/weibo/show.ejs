@@ -38,7 +38,7 @@
                     <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
                 </div>
                 <div class="am-topbar-register">
-                    <a href="/user/login" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">登录</a>
+                    <a href="/user/register" class="text-white am-btn am-btn-primary am-topbar-btn am-btn-sm">注册</a>
                 </div>
             <% } %>
         </div>
@@ -122,11 +122,16 @@
                             </header>
                             <div class="am-comment-bd">
                                 <%= item.content %>
-                                <% if(userId && item.userId !== userId){ %>
+                                <% if(userId){ %>
                                     <br>
-                                    <a href="javascript:void(0)" data-reply="<%= item.user.nickname %>">
-                                        回复
-                                    </a>
+                                    <% if(item.userId !== userId){ %>
+                                        <a href="javascript:void(0)" data-reply="<%= item.user.nickname %>">
+                                            回复
+                                        </a>
+                                    <% }else{ %>
+                                        <a href="/comment/delete/<%= item.id %>"
+                                           onclick="return confirm('确定删除吗?')">删除</a>
+                                    <% } %>
                                 <% } %>
                             </div>
                         </div>
