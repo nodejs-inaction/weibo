@@ -64,4 +64,19 @@ router.get('/homepage/:id', async (ctx) => {
         size: Number(size)
     });
 });
+
+router.get('/profile', guard, async (ctx) => {
+    const user = await userService.show(ctx.state.userId);
+    await ctx.render('user/profile', {
+        user
+    });
+});
+router.post('/profile', guard, async (ctx) => {
+    const {nickname, password} = ctx.request.body;
+    if (!nickname || nickname.length > 20) {
+        throw new Error('昵称不合法');
+    }
+    await userService.changeProfile(ctx.state.userId, nickname, password);
+    await ctx.redirect('/user/home');
+});
 module.exports = router;

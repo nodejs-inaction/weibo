@@ -1,0 +1,56 @@
+<header class="am-topbar">
+    <div class="am-container">
+        <h1 class="am-topbar-brand">
+            <a href="/">微博</a>
+        </h1>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+                    class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li><a href="/">广场</a></li>
+            </ul>
+
+
+            <div class="am-topbar-right">
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="text-white am-dropdown-toggle am-btn am-btn-primary am-topbar-btn am-btn-sm"
+                       data-am-dropdown-toggle href="javascript:;">
+                        个人中心 <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="/user/home">个人首页</a></li>
+                        <li class="am-active"><a href="/user/profile">修改资料</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="/user/logout" onclick="return confirm('确定退出吗?')">退出登录</a></li>
+                    </ul>
+                </li>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="am-container">
+    <div class="am-g">
+        <ol class="am-breadcrumb">
+            <li><a href="/user/home">个人主页</a></li>
+            <li class="am-active">修改资料</li>
+        </ol>
+        <h3>修改资料</h3>
+        <hr>
+        <form method="post" class="am-form">
+            <label for="nickname">昵称:</label>
+            <input type="text" name="nickname" id="nickname" value="<%= user.nickname %>" maxlength="20"
+                   placeholder="20字以内" required>
+            <br>
+            <label for="password">密码:</label>
+            <input type="text" name="password" id="password" value="" placeholder="不填则不修改">
+            <br/>
+            <div class="am-cf">
+                <input type="submit" name="" value="保存" class="am-btn am-btn-primary am-btn-sm am-fl">
+            </div>
+        </form>
+    </div>
+</div>

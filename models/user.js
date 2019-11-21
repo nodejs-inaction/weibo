@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
 
     User.beforeSave((user) => {
         // 密码处理
-        if (user.changed('password')) {
+        if (user.changed('password') && user.password.length > 0) {
             user.password = security.sha256(user.password);
         }
     });

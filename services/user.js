@@ -31,3 +31,7 @@ exports.show = function (userId) {
         attributes: ['id', 'nickname', 'subscriber_count', 'follower_count', 'weibo_count']
     });
 };
+// 修改个人资料
+exports.changeProfile = function (userId, nickname, password) {
+    return User.update({nickname, password: password || ''}, {where: {id: userId}});
+};
